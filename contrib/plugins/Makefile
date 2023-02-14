@@ -27,6 +27,7 @@ endif
 NAMES += hwprofile
 NAMES += cache
 NAMES += drcov
+NAMES += insncounts
 
 ifeq ($(CONFIG_WIN32),y)
 SO_SUFFIX := .dll
