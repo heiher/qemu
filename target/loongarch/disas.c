@@ -152,6 +152,15 @@ static void output_rrr(DisasContext *ctx, arg_rrr *a, const char *mnemonic)
     output(ctx, mnemonic, "r%d, r%d, r%d", a->rd, a->rj, a->rk);
 }
 
+static void output_andi(DisasContext *ctx, arg_rr_i *a, const char *mnemonic)
+{
+    if ((a->rd | a->rj | a->imm) == 0) {
+        output(ctx, "nop", "");
+    } else {
+        output(ctx, mnemonic, "r%d, r%d, %d", a->rd, a->rj, a->imm);
+    }
+}
+
 static void output_rr_i(DisasContext *ctx, arg_rr_i *a, const char *mnemonic)
 {
     output(ctx, mnemonic, "r%d, r%d, %d", a->rd, a->rj, a->imm);
@@ -504,7 +513,7 @@ INSN(sltui,        rr_i)
 INSN(addi_w,       rr_i)
 INSN(addi_d,       rr_i)
 INSN(lu52i_d,      rr_i)
-INSN(andi,         rr_i)
+INSN(andi,         andi)
 INSN(ori,          rr_i)
 INSN(xori,         rr_i)
 INSN(fmadd_s,      ffff)
